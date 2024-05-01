@@ -1,10 +1,28 @@
-
 import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import PsView
 
-Window {
-    width: 640
+ApplicationWindow {
+    id: applicationWindow
     height: 480
-    visible: true
     title: qsTr("Hello World")
+    visible: true
+    width: 640
 
+    Component.onCompleted: {
+        loginWindow.show();
+    }
+
+
+    GridLayout {
+        anchors.fill: parent
+        rows: 3
+    }
+
+
+    LoginWindow {
+        id: loginWindow
+        transientParent: applicationWindow
+    }
 }
