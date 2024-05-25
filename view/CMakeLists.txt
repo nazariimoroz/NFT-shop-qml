@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(ps-view VERSION 1.0 LANGUAGES CXX)
-set(PROJECT_NAME_QT PsView)
+project(ns-view VERSION 1.0 LANGUAGES CXX)
+set(PROJECT_NAME_QT NsView)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -31,4 +31,4 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         ./ApplicationWindow/
         ./LoginWindow/)
 target_link_libraries(${PROJECT_NAME} PRIVATE
-        Qt6::Quick Qt6::Gui Qt::Widgets ps-utils)
+        Qt6::Quick Qt6::Gui Qt::Widgets ns-utils)

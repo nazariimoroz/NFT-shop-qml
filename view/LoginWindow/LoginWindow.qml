@@ -7,6 +7,7 @@ Window {
     height: 500
     visible: true
     flags: Qt.SubWindow
+    title: "Login"
 
     ColumnLayout {
         id: regLayout

@@ -1,12 +1,12 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import PsView
+import NsView
 
 ApplicationWindow {
     id: applicationWindow
     height: 480
-    title: qsTr("Hello World")
+    title: "NFT Shop"
     visible: true
     width: 640
 
@@ -14,12 +14,10 @@ ApplicationWindow {
         loginWindow.show();
     }
 
-
     GridLayout {
         anchors.fill: parent
         rows: 3
     }
-
 
     LoginWindow {
         id: loginWindow
