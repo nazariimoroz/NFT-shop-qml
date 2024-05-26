@@ -13,7 +13,12 @@ LoginWindowController::LoginWindowController(QObject* parent) : QObject(parent)
 
 void LoginWindowController::TryRegistration()
 {
-
+    QNetworkRequest request;
+    request.setUrl(QUrl("https://example.com/"));
+    Utils::NetworkManager::get(request, this, [](QNetworkReply* reply){
+        NS_CHECK(!reply->error());
+        qDebug() << QString(reply->readAll());
+    });
 }
 
 void LoginWindowController::TryLogin()

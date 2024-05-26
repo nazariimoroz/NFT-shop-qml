@@ -22,7 +22,7 @@
         return TO_RET;                                                                  \
     }(void)0
 
-#define NS_CHECK(COND) PS_CHECK_RETURN(COND, )
+#define NS_CHECK(COND) NS_CHECK_RETURN(COND, )
 
 namespace Utils
 {

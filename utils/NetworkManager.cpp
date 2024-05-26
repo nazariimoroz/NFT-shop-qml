@@ -3,7 +3,6 @@
 //
 
 #include "NetworkManager.h"
-#include "QNetworkAccessManager"
 
 using namespace Utils;
 
