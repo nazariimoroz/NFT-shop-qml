@@ -1,10 +1,13 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QDirIterator>
+#include <NetworkManager.h>
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
+
+    const auto networkManager = Utils::NetworkManager();
 
     QQmlApplicationEngine engine;
     const QUrl url(u"qrc:/View/NsView/main.qml"_qs);

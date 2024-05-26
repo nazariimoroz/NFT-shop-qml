@@ -9,20 +9,20 @@
 #define TO_STR(TO_CONV) #TO_CONV
 #define TO_STR_COV(TO_CONV) TO_STR(TO_CONV)
 
-#define PS_INFO(MSG)\
+#define NS_INFO(MSG)\
     {QDebug(QtInfoMsg) << (__FILE__ "(" TO_STR_COV(__LINE__) ")" ": " MSG);} (void)0
 
-#define PS_ERROR(MSG)\
+#define NS_ERROR(MSG)\
     {QDebug(QtCriticalMsg) << (__FILE__ "(" TO_STR_COV(__LINE__) ")" ": " MSG);} (void)0
 
-#define PS_CHECK_RETURN(COND, TO_RET)                                                   \
+#define NS_CHECK_RETURN(COND, TO_RET)                                                   \
     if(!(COND))                                                                         \
     {                                                                                   \
-        PS_ERROR(#COND);                                                                \
+        NS_ERROR(#COND);                                                                \
         return TO_RET;                                                                  \
     }(void)0
 
-#define PS_CHECK(COND) PS_CHECK_RETURN(COND, )
+#define NS_CHECK(COND) PS_CHECK_RETURN(COND, )
 
 namespace Utils
 {

@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import NsView
 
 Window {
     width: 500
@@ -8,6 +9,10 @@ Window {
     visible: true
     flags: Qt.SubWindow
     title: "Login"
+
+    LoginWindowController {
+        id: loginWindowController
+    }
 
     ColumnLayout {
         id: regLayout
@@ -47,12 +52,16 @@ Window {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 text: "Registration"
+
+                onClicked: loginWindowController.TryRegistration()
             }
 
             Button {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 text: "Login"
+
+                onClicked: loginWindowController.TryLogin()
             }
         }
     }

@@ -24,6 +24,8 @@ qt_add_qml_module(${PROJECT_NAME}
         SOURCES
             ApplicationWindow/ApplicationWindowController.cpp
             ApplicationWindow/ApplicationWindowController.h
+            LoginWindow/LoginWindowController.cpp
+            LoginWindow/LoginWindowController.h
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC

@@ -6,7 +6,10 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_library(${PROJECT_NAME} STATIC
-        Utils.h)
+        Utils.h
+        NetworkManager.cpp
+        NetworkManager.h)
 
 target_include_directories(${PROJECT_NAME} PUBLIC "./")
-target_link_libraries(${PROJECT_NAME})
+target_link_libraries(${PROJECT_NAME} PRIVATE
+        Qt6::Network)

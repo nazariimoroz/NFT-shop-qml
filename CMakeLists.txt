@@ -8,7 +8,7 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 6.2 COMPONENTS Widgets Quick Gui REQUIRED)
+find_package(Qt6 6.2 COMPONENTS Widgets Quick Gui Network REQUIRED)
 
 qt_add_executable(${PROJECT_NAME}
         main.cpp

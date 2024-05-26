@@ -14,8 +14,8 @@ ApplicationWindowBackend::ApplicationWindowBackend(QObject* parent) : QObject(pa
 
 void ApplicationWindowBackend::onCompleted(QWindow* window)
 {
-    PS_CHECK((m_window = window));
-    PS_CHECK(m_loginWindow);
+    NS_CHECK((m_window = window));
+    NS_CHECK(m_loginWindow);
 
     m_loginWindow->show();
 }
