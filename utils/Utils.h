@@ -26,7 +26,22 @@
 
 namespace Utils
 {
+template<class T>
+T* tFromJson(const QJsonObject& jsonObject, QObject* parent = nullptr)
+{
+    auto var = new T(parent);
+    const auto metaObject = var->metaObject();
+    for(int i = metaObject->propertyOffset(); i < metaObject->propertyCount(); ++i)
+    {
+        const auto property = metaObject->property(i);
+        const auto propertyName = property.name();
+        const auto propertyValue = jsonObject[propertyName].toVariant();
 
+        var->setProperty(propertyName, propertyValue);
+    }
+
+    return var;
+}
 }
 
 #endif //PAYMENTS_SYSTEM_UTILS_H
