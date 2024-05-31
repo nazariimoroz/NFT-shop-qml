@@ -5,6 +5,7 @@
 #ifndef PAYMENTS_SYSTEM_UTILS_H
 #define PAYMENTS_SYSTEM_UTILS_H
 
+class QJsonObject;
 
 #define TO_STR(TO_CONV) #TO_CONV
 #define TO_STR_COV(TO_CONV) TO_STR(TO_CONV)
@@ -24,8 +25,14 @@
 
 #define NS_CHECK(COND) NS_CHECK_RETURN(COND, )
 
+
+#define RES_FILE ":/json/links.json"
+
 namespace Utils
 {
+
+QString getLink(QStringView name);
+
 template<class T>
 T* tFromJson(const QJsonObject& jsonObject, QObject* parent = nullptr)
 {

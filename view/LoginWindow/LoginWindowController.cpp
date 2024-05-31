@@ -7,15 +7,20 @@
 #include <QDebug>
 #include <Utils.h>
 #include <NetworkManager.h>
+#include <QStringView>
 
 LoginWindowController::LoginWindowController(QObject* parent) : QObject(parent)
 {
+    Q_INIT_RESOURCE(res); // TODO MOVE TO Utils
 }
 
 void LoginWindowController::TryRegistration()
 {
     QNetworkRequest request;
-    request.setUrl(QUrl("http://localhost:5000/api/user/1"));
+
+    request.setUrl(
+            QUrl(Utils::getLink(tr("getUser")).arg(1))
+            );
 
     Utils::NetworkManager::get(request, this, [this](QNetworkReply* reply){
         NS_CHECK(!reply->error());
@@ -24,11 +29,8 @@ void LoginWindowController::TryRegistration()
         const auto jsonDoc = QJsonDocument::fromJson(reply->readAll(), &error);
         NS_CHECK(error.error == QJsonParseError::NoError || !jsonDoc.isObject());
 
-        QJsonObject jsonReply = jsonDoc.object();
-
-        const auto user = Utils::tFromJson<UserModel>(jsonReply, this);
-
-        qDebug() << user->m_createdAt.toString();
+        const auto user = Utils::tFromJson<UserModel>(jsonDoc.object(), this);
+        qDebug() << user->m_name;
     });
 }
 

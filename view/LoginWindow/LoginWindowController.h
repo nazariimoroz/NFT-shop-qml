@@ -8,6 +8,8 @@
 #include <QObject>
 #include <QtQuick>
 
+class UserModel;
+
 class LoginWindowController : public QObject
 {
     Q_OBJECT
