@@ -1,5 +1,5 @@
 {
   "server": "http://localhost:5000/",
-  "registration": "test",
+  "registration": "auth/registration",
   "getUser": "api/user/%1"
 }

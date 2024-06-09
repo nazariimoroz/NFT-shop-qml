@@ -6,6 +6,7 @@
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
+    Q_INIT_RESOURCE(res);
 
     const auto networkManager = Utils::NetworkManager();
 

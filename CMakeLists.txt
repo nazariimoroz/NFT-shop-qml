@@ -10,8 +10,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 6.2 COMPONENTS Widgets Quick Gui Network Core REQUIRED)
 
+qt_add_resources(RES ./res.qrc)
 qt_add_executable(${PROJECT_NAME}
         main.cpp
+        ${RES}
 )
 
 add_subdirectory(utils)

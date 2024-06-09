@@ -9,28 +9,34 @@
 #include <NetworkManager.h>
 #include <QStringView>
 
-LoginWindowController::LoginWindowController(QObject* parent) : QObject(parent)
-{
-    Q_INIT_RESOURCE(res); // TODO MOVE TO Utils
-}
+LoginWindowController::LoginWindowController(QObject *parent)
+    : QObject(parent)
+{}
 
 void LoginWindowController::TryRegistration()
 {
-    QNetworkRequest request;
+    const auto request =
+        QNetworkRequest(QUrl(Utils::getLink(tr("registration"))));
 
-    request.setUrl(
-            QUrl(Utils::getLink(tr("getUser")).arg(1))
-            );
+    QHttpMultiPart https;
+    QHttpPart http;
 
-    Utils::NetworkManager::get(request, this, [this](QNetworkReply* reply){
-        NS_CHECK(!reply->error());
+    Utils::NetworkManager::get(request, this, [this](QNetworkReply *reply)
+    {
+        if (reply->error()) {
+            QDebug(QtCriticalMsg) << reply->errorString();
+            return;
+        }
 
         QJsonParseError error;
         const auto jsonDoc = QJsonDocument::fromJson(reply->readAll(), &error);
-        NS_CHECK(error.error == QJsonParseError::NoError || !jsonDoc.isObject());
+        if (error.error != QJsonParseError::NoError || !jsonDoc.isObject()) {
+            QDebug(QtCriticalMsg) << error.errorString() << " OR " << "jsonDoc is not a object";
+            return;
+        }
 
         const auto user = Utils::tFromJson<UserModel>(jsonDoc.object(), this);
-        qDebug() << user->m_name;
+        qDebug() << user->getName();
     });
 }
 

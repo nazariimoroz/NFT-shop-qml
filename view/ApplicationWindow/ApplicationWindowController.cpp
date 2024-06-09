@@ -5,7 +5,6 @@
 #include "ApplicationWindowController.h"
 #include <QDebug>
 #include <QWindow>
-#include "Utils.h"
 
 ApplicationWindowBackend::ApplicationWindowBackend(QObject* parent) : QObject(parent)
 {
@@ -14,8 +13,11 @@ ApplicationWindowBackend::ApplicationWindowBackend(QObject* parent) : QObject(pa
 
 void ApplicationWindowBackend::onCompleted(QWindow* window)
 {
-    NS_CHECK((m_window = window));
-    NS_CHECK(m_loginWindow);
+    m_window = window;
+    if (!m_loginWindow) {
+        QDebug(QtMsgType::QtCriticalMsg) << "!m_loginWindow";
+        return;
+    }
 
     m_loginWindow->show();
 }

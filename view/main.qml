@@ -9,9 +9,9 @@ ApplicationWindow {
     title: "NFT Shop"
     visible: true
     width: 640
-    
+
     Component.onCompleted: {
-        loginWindow.show();
+        loginWindow.show()
     }
 
     GridLayout {

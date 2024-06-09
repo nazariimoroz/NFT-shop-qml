@@ -12,10 +12,12 @@
 QString Utils::getLink(QStringView name)
 {
     static thread_local QJsonObject jsonObject;
-    if(jsonObject.isEmpty())
-    {
+    if (jsonObject.isEmpty()) {
         auto file = QFile(RES_FILE);
-        NS_CHECK_RETURN(file.open(QIODevice::ReadOnly | QIODevice::Text), QString{});
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            QDebug(QtCriticalMsg) << "Can not open RES file";
+            return QString{};
+        }
         jsonObject = QJsonDocument::fromJson(file.readAll()).object();
     }
     const auto toRet = jsonObject["server"].toString() + jsonObject[name].toString();
