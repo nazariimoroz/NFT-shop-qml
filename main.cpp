@@ -8,8 +8,6 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     Q_INIT_RESOURCE(res);
 
-    const auto networkManager = Utils::NetworkManager();
-
     QQmlApplicationEngine engine;
     const QUrl url(u"qrc:/View/NsView/main.qml"_qs);
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

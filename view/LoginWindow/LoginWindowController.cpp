@@ -9,6 +9,8 @@
 #include <NetworkManager.h>
 #include <QStringView>
 
+using namespace Qt::Literals::StringLiterals;
+
 LoginWindowController::LoginWindowController(QObject *parent)
     : QObject(parent)
 {
@@ -21,14 +23,23 @@ void LoginWindowController::tryRegistration()
         QDebug(QtCriticalMsg) << "!NetworkManager";
         return;
     }
-    auto request = QNetworkRequest(QUrl{"http://localhost:5000/api/auth/registration"});
+    auto request = QNetworkRequest(Utils::getLink(u"registration"));
     request.setHeader(QNetworkRequest::ContentTypeHeader,
-                      QVariant("application/x-www-form-urlencoded"));
+                      QVariant("application/json; chatset=utf-8"));
 
-    const auto body = QJsonObject{{"name", "user4"},
-                                  {"username", "@user4"},
-                                  {"email", "USER4@gmail.com"},
-                                  {"password", "qwerty"}};
+    auto body = QJsonObject{{"name", m_name},
+                            {"username", m_username},
+                            {"email", m_email},
+                            {"password", m_password}};
+
+    auto http = new QHttpMultiPart(NetworkManager);
+
+    QHttpPart receiptPart;
+    receiptPart.setHeader(QNetworkRequest::ContentDispositionHeader,
+                          QVariant("form-data; name=\"data\""));
+    receiptPart.setBody(QJsonDocument{body}.toJson(QJsonDocument::Compact));
+
+    http->append(receiptPart);
 
     const auto reply = NetworkManager->post(request,
                                             QJsonDocument{body}.toJson(QJsonDocument::Compact));
@@ -38,15 +49,8 @@ void LoginWindowController::tryRegistration()
         &QNetworkReply::finished,
         this,
         [this, reply]() {
-            if (reply->error()) {
-                QDebug(QtCriticalMsg) << reply->errorString();
-                QJsonParseError error;
-                const auto jsonDoc = QJsonDocument::fromJson(reply->readAll(), &error);
-                if (error.error != QJsonParseError::NoError) {
-                    return;
-                }
-                const auto arrayList = jsonDoc.object()["message"].toArray();
-
+            QList<QString> errors;
+            if (Utils::NetworkManager::processReplyError(reply, errors)) {
                 return;
             }
 

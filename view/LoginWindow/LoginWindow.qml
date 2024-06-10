@@ -23,15 +23,43 @@ Window {
         readonly property var elementHeight: 30
 
         TextField {
+            id: nameTextField
             Layout.alignment: Qt.AlignHCenter
             Layout.preferredWidth: regLayout.elementWidth
             Layout.preferredHeight: regLayout.elementHeight
-            placeholderText: "Login"
+            placeholderText: "Name"
             cursorVisible: false
             verticalAlignment: TextInput.AlignVCenter
+
+            onEditingFinished: loginWindowController.name = nameTextField.text
         }
 
         TextField {
+            id: usernameTextField
+            Layout.alignment: Qt.AlignHCenter
+            Layout.preferredWidth: regLayout.elementWidth
+            Layout.preferredHeight: regLayout.elementHeight
+            placeholderText: "Username"
+            cursorVisible: false
+            verticalAlignment: TextInput.AlignVCenter
+
+            onEditingFinished: loginWindowController.username = usernameTextField.text
+        }
+
+        TextField {
+            id: emailTextField
+            Layout.alignment: Qt.AlignHCenter
+            Layout.preferredWidth: regLayout.elementWidth
+            Layout.preferredHeight: regLayout.elementHeight
+            placeholderText: "Email"
+            cursorVisible: false
+            verticalAlignment: TextInput.AlignVCenter
+
+            onEditingFinished: loginWindowController.email = emailTextField.text
+        }
+
+        TextField {
+            id: passwordTextField
             Layout.alignment: Qt.AlignHCenter
             Layout.preferredWidth: regLayout.elementWidth
             Layout.preferredHeight: regLayout.elementHeight
@@ -39,6 +67,8 @@ Window {
             echoMode: TextInput.Password
             cursorVisible: false
             verticalAlignment: TextInput.AlignVCenter
+
+            onEditingFinished: loginWindowController.password = passwordTextField.text
         }
 
         RowLayout {

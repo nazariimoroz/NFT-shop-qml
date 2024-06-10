@@ -3,22 +3,34 @@
 //
 
 #include "NetworkManager.h"
+#include "qjsonarray.h"
+#include "qjsonobject.h"
+
+#include <QJsonParseError>
+#include <QNetworkReply>
 
 using namespace Utils;
 
-QNetworkAccessManager* NetworkManager::m_networkAccessManager = nullptr;
-
-NetworkManager::NetworkManager()
+bool NetworkManager::processReplyError(QNetworkReply *reply, QList<QString> &errors)
 {
-    m_networkAccessManager = new QNetworkAccessManager();
-}
+    if (reply->error()) {
+        QDebug(QtCriticalMsg) << reply->errorString();
 
-NetworkManager::~NetworkManager()
-{
-    delete m_networkAccessManager;
-}
+        QJsonParseError error;
 
-QNetworkAccessManager* NetworkManager::getNetworkAccessManager()
-{
-    return m_networkAccessManager;
+        const auto jsonDoc = QJsonDocument::fromJson(reply->readAll(), &error);
+        if (error.error != QJsonParseError::NoError) {
+            return true;
+        }
+
+        const auto arrayList = jsonDoc.object()["message"].toArray();
+        for (auto var : arrayList) {
+            const auto result = var.toString();
+            QDebug(QtCriticalMsg) << result;
+            errors << result;
+        }
+        return true;
+    }
+
+    return false;
 }
