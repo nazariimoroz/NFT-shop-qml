@@ -13,7 +13,7 @@
 namespace Utils
 {
 
-QString getLink(QStringView name);
+QUrl getLink(QStringView name);
 
 template<class T>
 T *tFromJson(const QJsonObject &jsonObject, QObject *parent = nullptr)

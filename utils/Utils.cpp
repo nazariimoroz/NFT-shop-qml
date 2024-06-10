@@ -9,17 +9,21 @@
 #include <QJsonObject>
 #include "Utils.h"
 
-QString Utils::getLink(QStringView name)
+QUrl Utils::getLink(QStringView name)
 {
     static thread_local QJsonObject jsonObject;
+#ifdef NDEBUG
     if (jsonObject.isEmpty()) {
+#else
+    if (true) {
+#endif
         auto file = QFile(RES_FILE);
         if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
             QDebug(QtCriticalMsg) << "Can not open RES file";
-            return QString{};
+            return QUrl{QString{}};
         }
         jsonObject = QJsonDocument::fromJson(file.readAll()).object();
     }
     const auto toRet = jsonObject["server"].toString() + jsonObject[name].toString();
-    return toRet;
+    return QUrl{toRet};
 }

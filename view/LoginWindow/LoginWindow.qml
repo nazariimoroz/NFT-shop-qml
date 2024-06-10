@@ -22,7 +22,6 @@ Window {
         readonly property var elementWidth: 200
         readonly property var elementHeight: 30
 
-
         TextField {
             Layout.alignment: Qt.AlignHCenter
             Layout.preferredWidth: regLayout.elementWidth
@@ -53,7 +52,7 @@ Window {
                 Layout.fillHeight: true
                 text: "Registration"
 
-                onClicked: loginWindowController.TryRegistration()
+                onClicked: loginWindowController.tryRegistration()
             }
 
             Button {
@@ -61,7 +60,7 @@ Window {
                 Layout.fillHeight: true
                 text: "Login"
 
-                onClicked: loginWindowController.TryLogin()
+                onClicked: loginWindowController.tryLogin()
             }
         }
     }

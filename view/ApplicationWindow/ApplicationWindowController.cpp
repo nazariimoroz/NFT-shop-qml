@@ -11,18 +11,3 @@ ApplicationWindowBackend::ApplicationWindowBackend(QObject* parent) : QObject(pa
 
 }
 
-void ApplicationWindowBackend::onCompleted(QWindow* window)
-{
-    m_window = window;
-    if (!m_loginWindow) {
-        QDebug(QtMsgType::QtCriticalMsg) << "!m_loginWindow";
-        return;
-    }
-
-    m_loginWindow->show();
-}
-
-void ApplicationWindowBackend::setLoginWindow(QWindow* newLoginWindow)
-{
-    m_loginWindow = newLoginWindow;
-}

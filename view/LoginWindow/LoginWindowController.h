@@ -7,8 +7,7 @@
 
 #include <QObject>
 #include <QtQuick>
-
-class UserModel;
+#include <UserModel.h>
 
 class LoginWindowController : public QObject
 {
@@ -16,11 +15,16 @@ class LoginWindowController : public QObject
     QML_ELEMENT
 
 public:
-    explicit LoginWindowController(QObject* parent = nullptr);
+    explicit LoginWindowController(QObject *parent = nullptr);
 
-    Q_INVOKABLE void TryRegistration();
-    Q_INVOKABLE void TryLogin();
+    Q_INVOKABLE void tryRegistration();
+    Q_INVOKABLE void tryLogin();
+
+signals:
+    void authComplete(UserModel *result);
+
+private:
+    QNetworkAccessManager *NetworkManager;
 };
-
 
 #endif //NFT_SHOP_LOGINWINDOWCONTROLLER_H
