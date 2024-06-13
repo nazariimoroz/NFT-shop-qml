@@ -7,23 +7,29 @@
 
 #include <QObject>
 #include <QDateTime>
-
-enum UserRole {
-    User, Admin
-};
+#include <QtQuick>
 
 class UserModel : public QObject
 {
     Q_OBJECT
+    QML_ELEMENT
 
+public:
+    enum UserRole {
+        UR_User, UR_Admin
+    };
+    Q_ENUM(UserRole)
+
+private:
     Q_PROPERTY(int id                   MEMBER m_id)
     Q_PROPERTY(QString name             MEMBER m_name)
     Q_PROPERTY(QString email            MEMBER m_email)
     Q_PROPERTY(QString password         MEMBER m_password)
     Q_PROPERTY(QString bio              MEMBER m_bio)
-    //Q_PROPERTY(UserRole role           MEMBER m_id)
+    Q_PROPERTY(int role                 MEMBER m_id)
     Q_PROPERTY(QDateTime createdAt      MEMBER m_createdAt)
     Q_PROPERTY(QDateTime updatedAt      MEMBER m_updatedAt)
+
 public:
     explicit UserModel(QObject* parent = nullptr);
 

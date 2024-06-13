@@ -11,6 +11,8 @@
 
 using namespace Qt::Literals::StringLiterals;
 
+#define USE_DEBUG_REGISTRATION 1
+
 LoginWindowController::LoginWindowController(QObject *parent)
     : QObject(parent)
 {
@@ -31,6 +33,14 @@ void LoginWindowController::tryRegistration()
                             {"username", m_username},
                             {"email", m_email},
                             {"password", m_password}};
+
+#if USE_DEBUG_REGISTRATION
+    const auto user = new UserModel(this);
+    user->setName("TEST NAME");
+    user->setBio("TEST BIO");
+    emit authComplete(user);
+    return;
+#endif
 
     auto http = new QHttpMultiPart(NetworkManager);
 

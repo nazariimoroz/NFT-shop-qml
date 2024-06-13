@@ -2,16 +2,21 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import NsView
+import NsModels
 
 Window {
+    id: loginWindow
     width: 500
     height: 500
     visible: true
     flags: Qt.SubWindow
-    title: "Login"
+    title: "Authentication"
+    signal authCompeted(UserModel user)
 
     LoginWindowController {
         id: loginWindowController
+
+        onAuthComplete: user => loginWindow.authCompeted(user)
     }
 
     ColumnLayout {

@@ -20,5 +20,5 @@ add_subdirectory(utils)
 add_subdirectory(models)
 add_subdirectory(view)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Gui Qt6::Quick ns-viewplugin ns-utils ns-models)
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Gui Qt6::Quick ns-view ns-viewplugin ns-utils ns-models ns-modelsplugin)
 target_compile_definitions(${PROJECT_NAME} PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)

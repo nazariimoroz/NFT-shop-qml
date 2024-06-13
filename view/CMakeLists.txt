@@ -33,4 +33,4 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         ./ApplicationWindow/
         ./LoginWindow/)
 target_link_libraries(${PROJECT_NAME} PRIVATE
-        Qt6::Quick Qt6::Gui Qt::Widgets ns-utils ns-models)
+        Qt6::Quick Qt6::Gui Qt::Widgets ns-utils ns-models ns-modelsplugin)
