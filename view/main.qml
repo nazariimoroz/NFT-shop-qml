@@ -65,6 +65,7 @@ ApplicationWindow {
 
         NavigationMenu {
             id: navigationMenu
+            width: 50
             unfoldedWidth: 250
             unfoldingDuration: 100
 

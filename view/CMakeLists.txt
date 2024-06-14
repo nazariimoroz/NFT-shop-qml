@@ -21,7 +21,8 @@ qt_add_qml_module(${PROJECT_NAME}
         QML_FILES
             main.qml
             LoginWindow/LoginWindow.qml
-            NavigationMenu.qml
+            NavigationMenu/NavigationMenu.qml
+            NavigationMenu/NavMenuElementDelegate.qml
         SOURCES
             ApplicationWindow/ApplicationWindowController.cpp
             ApplicationWindow/ApplicationWindowController.h
