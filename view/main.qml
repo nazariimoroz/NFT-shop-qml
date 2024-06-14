@@ -6,8 +6,8 @@ import NsModels
 
 ApplicationWindow {
     id: applicationWindow
-    height: 480
-    width: 640
+    height: 700
+    width: 440
     title: "NFT Shop"
     visible: true
 
@@ -20,14 +20,9 @@ ApplicationWindow {
             console.error("!userModel")
             return
         }
-        userNameText.text = userModel.name
-        userBioText.text = userModel.bio
     }
 
-    Component.onCompleted: {
-        loginWindow.show()
-    }
-
+    /*
     LoginWindow {
         id: loginWindow
         transientParent: applicationWindow
@@ -42,7 +37,7 @@ ApplicationWindow {
 
             updateUserUi()
         }
-    }
+    }*/
 
     /* ALL FRONT HERE */
     Rectangle {
@@ -50,50 +45,40 @@ ApplicationWindow {
         anchors.fill: parent
         color: applicationWindow.rootRectangleBaseColor
 
-        Rectangle {
-            id: navigationMenu
-            color: "red"
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            width: 40
-
-            MouseArea {
-                id: mouseArea;
-                anchors.fill: parent;
-                hoverEnabled: true
+        states: [
+            State {
+                name: "shaded"
+                PropertyChanges {
+                    rootRectangle {
+                        color: rootRectangleFadedColor
+                    }
+                }
             }
+        ]
 
-            states: [
-                State {
-                    name: "unfolded"
-                    when: mouseArea.containsMouse === true
-                    PropertyChanges {
-                        navigationMenu {
-                            width: 200
-                        }
-                        rootRectangle {
-                            color: applicationWindow.rootRectangleFadedColor
-                        }
-                    }
-                }
-            ]
+        transitions: [
+            Transition {
+                from: ""; to: "shaded"; reversible: true
+                ColorAnimation { duration: 100 }
+            }
+        ]
 
-            transitions: [
-                Transition {
-                    from: ""; to: "unfolded"; reversible: true
-                    ParallelAnimation {
-                        PropertyAnimation { property: "width"; duration: 100; easing.type: Easing.InOutQuad }
-                        ColorAnimation { duration: 100; }
-                    }
+        NavigationMenu {
+            id: navigationMenu
+            unfoldedWidth: 250
+            unfoldingDuration: 100
+
+            onStateChanged: state => {
+                switch(state) {
+                    case "unfolded":
+                        rootRectangle.state = "shaded"
+                        break;
+                    default:
+                        rootRectangle.state = ""
+                        break;
                 }
-            ]
+            }
         }
 
-
     }
-
-    Text { id: userNameText }
-    Text { id: userBioText; anchors.top: userNameText.bottom }
-
 }
