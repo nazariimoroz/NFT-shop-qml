@@ -3,4 +3,7 @@
     <qresource prefix="/json">
         <file>links.json</file>
     </qresource>
+    <qresource prefix="/images">
+        <file>res/defaultAvatar.jpg</file>
+    </qresource>
 </RCC>

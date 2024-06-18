@@ -10,6 +10,7 @@ Rectangle {
     anchors.top: parent.top
     anchors.bottom: parent.bottom
     width: 40
+    clip: true
 
     property var unfoldedWidth: 200
     property real unfoldingDuration: 100
@@ -44,9 +45,59 @@ Rectangle {
         }
     ]
 
+    Rectangle {
+        id: navMenuThreeDots
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.margins: 3
+        color: "#00000000"
+
+        Component.onCompleted: {
+            height = width * 2
+            anchors.right = undefined
+        }
+    }
+
+    Rectangle {
+        id: navMenuAvatar
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.margins: 3
+        color: "#00000000"
+
+        Component.onCompleted: {
+            height = width
+            anchors.left = undefined
+        }
+
+        Image {
+            id: navMenuAvatarImage
+            anchors.fill: parent
+            source: "qrc:/images/res/defaultAvatar.jpg"
+        }
+    }
+
+    Text {
+        id: navMenuUsername
+        anchors.top: navMenuAvatar.bottom
+        text: "TEXT USER NAME"
+
+        font.bold: true
+        font.pointSize: 10
+
+        Component.onCompleted: {
+            x = navigationMenu.unfoldedWidth - width - 3
+        }
+    }
+
     ListView {
         id: navMenuElements
-        anchors.fill: parent
+        anchors.top: navMenuThreeDots.bottom
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
         anchors.margins: 3
         spacing: 3
 
