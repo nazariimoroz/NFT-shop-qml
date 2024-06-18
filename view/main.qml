@@ -11,9 +11,6 @@ ApplicationWindow {
     title: "NFT Shop"
     visible: true
 
-    readonly property var rootRectangleBaseColor: "#c9ced3"
-    readonly property var rootRectangleFadedColor: "#9fa8b1"
-
     property UserModel userModel: null
     function updateUserUi() {
         if(!userModel)  {
@@ -43,14 +40,16 @@ ApplicationWindow {
     Rectangle {
         id: rootRectangle
         anchors.fill: parent
-        color: applicationWindow.rootRectangleBaseColor
+
+        readonly property real navMenuFoldedSize: 50
+        readonly property real navMenuUnfoldedSize: 250
 
         states: [
             State {
                 name: "shaded"
                 PropertyChanges {
-                    rootRectangle {
-                        color: rootRectangleFadedColor
+                    shadeRectangle {
+                        color: Qt.rgba(1,1,1,0.2)
                     }
                 }
             }
@@ -65,9 +64,10 @@ ApplicationWindow {
 
         NavigationMenu {
             id: navigationMenu
-            width: 50
-            unfoldedWidth: 250
+            width: rootRectangle.navMenuFoldedSize
+            unfoldedWidth: rootRectangle.navMenuUnfoldedSize
             unfoldingDuration: 100
+            z: 100
 
             onStateChanged: state => {
                 switch(state) {
@@ -81,5 +81,32 @@ ApplicationWindow {
             }
         }
 
+        Rectangle {
+            id: shadeRectangle
+            z: 99
+            anchors.fill: parent
+            color: Qt.rgba(1,1,1,0)
+        }
+
+        Pane {
+            id: contentRectangle
+
+            width: parent.width - rootRectangle.navMenuFoldedSize
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+
+            StackView {
+                id: contentSwipeView
+                anchors.fill: parent
+
+                initialItem: MainContent {}
+            }
+
+            component MainContent: Pane {
+                width: parent ? parent.width : 0
+                height: parent ? parent.height : 0
+            }
+        }
     }
 }

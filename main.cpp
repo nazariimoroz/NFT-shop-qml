@@ -2,11 +2,15 @@
 #include <QQmlApplicationEngine>
 #include <QDirIterator>
 #include <NetworkManager.h>
+#include <QQuickStyle>
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
     Q_INIT_RESOURCE(res);
+
+    qputenv("QT_QUICK_CONTROLS_UNIVERSAL_THEME", QByteArray("Dark"));
+    QQuickStyle::setStyle("Universal");
 
     QQmlApplicationEngine engine;
     engine.setOutputWarningsToStandardError(true);
