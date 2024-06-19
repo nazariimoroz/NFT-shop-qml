@@ -88,7 +88,7 @@ ApplicationWindow {
             color: Qt.rgba(1,1,1,0)
         }
 
-        Pane {
+        Rectangle {
             id: contentRectangle
 
             width: parent.width - rootRectangle.navMenuFoldedSize
@@ -96,17 +96,71 @@ ApplicationWindow {
             anchors.top: parent.top
             anchors.bottom: parent.bottom
 
+
             StackView {
                 id: contentSwipeView
                 anchors.fill: parent
 
-                initialItem: MainContent {}
+                initialItem: Pane {
+                    width: parent ? parent.width : 0
+                    height: parent ? parent.height : 0
+
+                    Flickable {
+                        anchors.fill: parent
+                        contentHeight: mainColumn.height
+
+                        Column {
+                            id: mainColumn
+                            width: parent.width
+                            spacing: 10
+
+                            NftsSwiper {
+                                width: parent.width
+                                height: 300
+                            }
+
+                            NftsSwiper {
+                                width: parent.width
+                                height: 300
+                            }
+
+                            NftsSwiper {
+                                width: parent.width
+                                height: 300
+                            }
+                        }
+                    }
+
+                    component NftsSwiper: Pane {
+                        property var swiper: _swipeView
+
+                        SwipeView {
+                            id: _swipeView
+                            width: parent.width
+                            height: parent.height
+
+                            Repeater {
+                                model: 3
+
+                                Rectangle {
+                                    border.pixelAligned: true
+                                    border.width: 1
+                                    color: "green"
+                                }
+                            }
+                        }
+
+                        PageIndicator {
+                            count: _swipeView.count
+                            currentIndex: _swipeView.currentIndex
+
+                            anchors.bottom: _swipeView.bottom
+                            anchors.horizontalCenter: parent.horizontalCenter
+                        }
+                    }
+                }
             }
 
-            component MainContent: Pane {
-                width: parent ? parent.width : 0
-                height: parent ? parent.height : 0
-            }
         }
     }
 }
