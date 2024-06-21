@@ -12,8 +12,9 @@ ApplicationWindow {
     visible: true
 
     property UserModel userModel: null
+
     function updateUserUi() {
-        if(!userModel)  {
+        if (!userModel) {
             console.error("!userModel")
             return
         }
@@ -36,131 +37,113 @@ ApplicationWindow {
         }
     }*/
 
-    /* ALL FRONT HERE */
-    Rectangle {
-        id: rootRectangle
+    header: ToolBar {
+        RowLayout {
+            anchors.fill: parent
+            spacing: 1
+
+            ToolButton {
+
+            }
+
+            Rectangle {
+                Layout.fillWidth: true
+            }
+
+            ToolButton {
+
+            }
+
+            ToolButton {
+
+            }
+
+            ToolButton {
+
+            }
+        }
+    }
+
+    StackView {
+        id: contentStackView
         anchors.fill: parent
 
-        readonly property real navMenuFoldedSize: 50
-        readonly property real navMenuUnfoldedSize: 250
-
-        states: [
-            State {
-                name: "shaded"
-                PropertyChanges {
-                    shadeRectangle {
-                        color: Qt.rgba(1,1,1,0.2)
-                    }
-                }
-            }
-        ]
-
-        transitions: [
-            Transition {
-                from: ""; to: "shaded"; reversible: true
-                ColorAnimation { duration: 100 }
-            }
-        ]
-
-        NavigationMenu {
-            id: navigationMenu
-            width: rootRectangle.navMenuFoldedSize
-            unfoldedWidth: rootRectangle.navMenuUnfoldedSize
-            unfoldingDuration: 100
-            z: 100
-
-            onStateChanged: state => {
-                switch(state) {
-                    case "unfolded":
-                        rootRectangle.state = "shaded"
-                        break;
-                    default:
-                        rootRectangle.state = ""
-                        break;
-                }
-            }
-        }
-
-        Rectangle {
-            id: shadeRectangle
-            z: 99
+        initialItem: MainPage {
+            id: mainPage
             anchors.fill: parent
-            color: Qt.rgba(1,1,1,0)
         }
+    }
 
-        Rectangle {
-            id: contentRectangle
+    component MainPage: Pane {
+        topPadding: 0
+        ColumnLayout {
+            anchors.fill: parent
 
-            width: parent.width - rootRectangle.navMenuFoldedSize
-            anchors.right: parent.right
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
+            TabBar {
+                id: bar
+                Layout.fillWidth: true
+                TabButton {
+                    text: "Explore"
+                }
+                TabButton {
+                    text: "Pearls"
+                }
+            }
 
+            StackLayout {
+                id: barStack
+                currentIndex: bar.currentIndex
 
-            StackView {
-                id: contentSwipeView
-                anchors.fill: parent
-
-                initialItem: Pane {
-                    width: parent ? parent.width : 0
-                    height: parent ? parent.height : 0
+                Pane {
+                    padding: 0
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
 
                     Flickable {
                         anchors.fill: parent
-                        contentHeight: mainColumn.height
+                        contentHeight: nftColumn.height
 
                         Column {
-                            id: mainColumn
+                            id: nftColumn
                             width: parent.width
-                            spacing: 10
 
                             NftsSwiper {
                                 width: parent.width
                                 height: 300
                             }
-
-                            NftsSwiper {
-                                width: parent.width
-                                height: 300
-                            }
-
-                            NftsSwiper {
-                                width: parent.width
-                                height: 300
-                            }
-                        }
-                    }
-
-                    component NftsSwiper: Pane {
-                        property var swiper: _swipeView
-
-                        SwipeView {
-                            id: _swipeView
-                            width: parent.width
-                            height: parent.height
-
-                            Repeater {
-                                model: 3
-
-                                Rectangle {
-                                    border.pixelAligned: true
-                                    border.width: 1
-                                    color: "green"
-                                }
-                            }
-                        }
-
-                        PageIndicator {
-                            count: _swipeView.count
-                            currentIndex: _swipeView.currentIndex
-
-                            anchors.bottom: _swipeView.bottom
-                            anchors.horizontalCenter: parent.horizontalCenter
                         }
                     }
                 }
             }
-
         }
     }
+
+    component NftsSwiper: Pane {
+        property var swiper: _swipeView
+
+        SwipeView {
+            id: _swipeView
+            width: parent.width
+            height: parent.height
+
+            Repeater {
+                model: 3
+
+                Rectangle {
+                    border.pixelAligned: true
+                    border.width: 1
+                    color: "green"
+                }
+            }
+        }
+
+        PageIndicator {
+            count: _swipeView.count
+            currentIndex: _swipeView.currentIndex
+
+            anchors.top: _swipeView.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+    }
+
 }

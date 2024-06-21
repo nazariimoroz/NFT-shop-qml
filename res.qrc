@@ -4,6 +4,6 @@
         <file>links.json</file>
     </qresource>
     <qresource prefix="/images">
-        <file>res/defaultAvatar.jpg</file>
+        <file alias="defaultAvatar">res/defaultAvatar.jpg</file>
     </qresource>
 </RCC>

@@ -75,7 +75,7 @@ Rectangle {
         Image {
             id: navMenuAvatarImage
             anchors.fill: parent
-            source: "qrc:/images/res/defaultAvatar.jpg"
+            source: "qrc:/images/defaultAvatar"
         }
     }
 
