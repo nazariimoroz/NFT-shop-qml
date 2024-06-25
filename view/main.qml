@@ -12,6 +12,7 @@ ApplicationWindow {
     visible: true
 
     property UserModel userModel: null
+    property string paneColor: "#1f1f1f"
 
     function updateUserUi() {
         if (!userModel) {
@@ -116,7 +117,7 @@ ApplicationWindow {
                             Rectangle {
                                 height: 30
                                 width: parent.width
-                                color: Qt.rgba(0,0,0,0)
+                                color: Qt.rgba(0, 0, 0, 0)
                             }
 
                             Label {
@@ -152,10 +153,62 @@ ApplicationWindow {
 
 
                             }
-                            
+
+                            Rectangle {
+                                height: 10
+                                width: parent.width
+                                color: Qt.rgba(0, 0, 0, 0)
+                            }
+
                             StackLayout {
                                 id: collectionsBarStack
                                 currentIndex: collectionsBar.currentIndex
+                                width: parent.width
+                                height: currentIndex === -1 ? 500 : collectionsBarStack.children[currentIndex].height
+
+                                Repeater {
+                                    model: 4
+                                    Pane {
+                                        padding: 0
+                                        Layout.fillHeight: false
+                                        Layout.minimumHeight: flickable.height
+
+                                        Flickable {
+                                            id: flickable
+                                            width: parent.width
+                                            height: nftsRow.height
+                                            contentWidth: nftsRow.width
+                                            contentHeight: nftsRow.height
+
+                                            flickableDirection: Flickable.HorizontalFlick
+
+                                            Row {
+                                                id: nftsRow
+                                                spacing: 8
+
+                                                Repeater {
+                                                    model: 4
+
+                                                    Column {
+                                                        spacing: 8
+
+                                                        Repeater {
+                                                            model: 6
+
+                                                            Rectangle {
+                                                                radius: 10
+                                                                implicitWidth: nftColumn.width
+                                                                implicitHeight: 80
+                                                                color: Qt.lighter(applicationWindow.paneColor)
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                    }
+                                }
                             }
                         }
                     }
