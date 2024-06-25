@@ -3,6 +3,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import NsView
 import NsModels
+import "." as App
 
 ApplicationWindow {
     id: applicationWindow
@@ -109,7 +110,7 @@ ApplicationWindow {
                             id: nftColumn
                             width: parent.width
 
-                            NftsSwiper {
+                            App.NftSwiper {
                                 width: parent.width
                                 height: 300
                             }
@@ -168,46 +169,16 @@ ApplicationWindow {
 
                                 Repeater {
                                     model: 4
-                                    Pane {
-                                        padding: 0
+
+                                    App.NftSwiper2 {
                                         Layout.fillHeight: false
                                         Layout.minimumHeight: flickable.height
 
-                                        Flickable {
-                                            id: flickable
-                                            width: parent.width
-                                            height: nftsRow.height
-                                            contentWidth: nftsRow.width
-                                            contentHeight: nftsRow.height
-
-                                            flickableDirection: Flickable.HorizontalFlick
-
-                                            Row {
-                                                id: nftsRow
-                                                spacing: 8
-
-                                                Repeater {
-                                                    model: 4
-
-                                                    Column {
-                                                        spacing: 8
-
-                                                        Repeater {
-                                                            model: 6
-
-                                                            Rectangle {
-                                                                radius: 10
-                                                                implicitWidth: nftColumn.width
-                                                                implicitHeight: 80
-                                                                color: Qt.lighter(applicationWindow.paneColor)
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-
+                                        nftElementColor: Qt.lighter(applicationWindow.paneColor)
+                                        nftElementWidth: nftColumn.width
+                                        nftElementHeight: 80
                                     }
+
                                 }
                             }
                         }
@@ -216,33 +187,4 @@ ApplicationWindow {
             }
         }
     }
-
-    component NftsSwiper: Pane {
-        property var swiper: _swipeView
-
-        SwipeView {
-            id: _swipeView
-            width: parent.width
-            height: parent.height
-
-            Repeater {
-                model: 3
-
-                Rectangle {
-                    border.pixelAligned: true
-                    border.width: 1
-                    color: "green"
-                }
-            }
-        }
-
-        PageIndicator {
-            count: _swipeView.count
-            currentIndex: _swipeView.currentIndex
-
-            anchors.top: _swipeView.bottom
-            anchors.horizontalCenter: parent.horizontalCenter
-        }
-    }
-
 }

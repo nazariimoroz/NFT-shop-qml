@@ -20,6 +20,9 @@ qt_add_qml_module(${PROJECT_NAME}
         VERSION 1.0
         QML_FILES
             main.qml
+            NftSwiper.qml
+            NftSwiper2.qml
+            NftSwiper2Element.qml
             LoginWindow/LoginWindow.qml
             NavigationMenu/NavigationMenu.qml
             NavigationMenu/NavMenuElementDelegate.qml
