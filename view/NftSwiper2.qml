@@ -27,18 +27,22 @@ Pane {
             spacing: 8
 
             Repeater {
-                model: 4
+                model: [ { indexW: 0 }, { indexW: 1 }, { indexW: 2 }, { indexW: 3 } ]
 
                 Column {
                     spacing: 8
+                    required property int indexW
 
                     Repeater {
                         model: 6
 
                         App.NftSwiper2Element {
+                            required property int modelData
+
                             implicitWidth: rootPane.nftElementWidth
                             implicitHeight: rootPane.nftElementHeight
                             color: rootPane.nftElementColor
+                            text: "test_" + ((modelData + 1) + indexW * 6)
                         }
                     }
                 }

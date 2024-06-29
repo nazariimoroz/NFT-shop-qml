@@ -6,6 +6,10 @@ import "." as App
 Pane {
     topPadding: 0
 
+    function refresh() {
+        bar.setCurrentIndex(0)
+    }
+
     Flickable {
         width: parent.width
         height: parent.height
@@ -36,7 +40,14 @@ Pane {
                 App.ExplorePage {
                     id: explorePane
                     Layout.fillWidth: true
-                    Layout.fillHeight: true
+                    Layout.minimumHeight: implicitHeight
+                    Layout.maximumHeight: implicitHeight
+                }
+
+                Rectangle {
+                    Layout.fillWidth: true
+                    Layout.minimumHeight: 100
+                    Layout.maximumHeight: 100
                 }
             }
         }

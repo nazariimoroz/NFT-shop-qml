@@ -6,7 +6,7 @@ import "." as App
 Pane {
     id: explorePane
     padding: 0
-    height: nftColumn.height
+    implicitHeight: nftColumn.height
 
     Column {
         id: nftColumn

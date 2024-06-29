@@ -7,6 +7,8 @@ Rectangle {
     radius: 10
     clip: true
 
+    property string text: "test"
+
     Row {
         Rectangle {
             width: rootRect.height
@@ -25,7 +27,7 @@ Rectangle {
             anchors.verticalCenter: parent.verticalCenter
 
             Text {
-                text: "test"
+                text: rootRect.text
                 color: "white"
                 font.pointSize: 15
             }

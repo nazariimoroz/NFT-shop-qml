@@ -39,13 +39,21 @@ ApplicationWindow {
         }
     }*/
 
+    Action {
+        id: backToMainPage
+        onTriggered: {
+            contentStackView.pop(contentStackView.initialItem, StackView.Immediate)
+            contentStackView.currentItem.refresh();
+        }
+    }
+
     header: ToolBar {
         RowLayout {
             anchors.fill: parent
             spacing: 1
 
             ToolButton {
-
+                action: backToMainPage
             }
 
             Rectangle {
