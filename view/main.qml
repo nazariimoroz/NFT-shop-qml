@@ -40,10 +40,75 @@ ApplicationWindow {
     }*/
 
     Action {
-        id: backToMainPage
+        id: backToMainPageAction
         onTriggered: {
             contentStackView.pop(contentStackView.initialItem, StackView.Immediate)
             contentStackView.currentItem.refresh();
+        }
+    }
+
+    Component {
+        id: searchPageComponent
+
+        App.SearchPage {
+
+        }
+    }
+
+    Action {
+        id: searchPageAction
+
+        onTriggered: (source) => {
+            if(!(contentStackView.currentItem instanceof App.SearchPage)) {
+                backToMainPageAction.trigger(source)
+                contentStackView.push(searchPageComponent, {})
+            }
+            else {
+                backToMainPageAction.trigger(source)
+            }
+        }
+    }
+
+    Component {
+        id: notificationsPageComponent
+
+        App.NotificationsPage {
+
+        }
+    }
+
+    Action {
+        id: notificationsPageAction
+
+        onTriggered: (source) => {
+            if(!(contentStackView.currentItem instanceof App.NotificationsPage)) {
+                backToMainPageAction.trigger(source)
+                contentStackView.push(notificationsPageComponent, {})
+            }
+            else {
+                backToMainPageAction.trigger(source)
+            }
+        }
+    }
+
+    Component {
+        id: userProfilePageComponent
+        App.UserProfilePage {
+
+        }
+    }
+
+    Action {
+        id: userProfilePageAction
+
+        onTriggered: (source) => {
+            if(!(contentStackView.currentItem instanceof App.UserProfilePage)) {
+                backToMainPageAction.trigger(source)
+                contentStackView.push(userProfilePageComponent, {})
+            }
+            else {
+                backToMainPageAction.trigger(source)
+            }
         }
     }
 
@@ -53,7 +118,7 @@ ApplicationWindow {
             spacing: 1
 
             ToolButton {
-                action: backToMainPage
+                action: backToMainPageAction
             }
 
             Rectangle {
@@ -61,15 +126,15 @@ ApplicationWindow {
             }
 
             ToolButton {
-
+                action: searchPageAction
             }
 
             ToolButton {
-
+                action: notificationsPageAction
             }
 
             ToolButton {
-
+                action: userProfilePageAction
             }
         }
     }
