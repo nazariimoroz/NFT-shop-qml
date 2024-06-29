@@ -5,110 +5,38 @@ import "." as App
 
 Pane {
     topPadding: 0
-    ColumnLayout {
-        anchors.fill: parent
 
-        TabBar {
-            id: bar
-            Layout.fillWidth: true
-            TabButton {
-                text: "Explore"
+    Flickable {
+        width: parent.width
+        height: parent.height
+        contentHeight: mainColumn.height
+
+        Column {
+            id: mainColumn
+            width: parent.width
+
+            TabBar {
+                id: bar
+                width: parent.width
+
+                TabButton {
+                    text: "Explore"
+                }
+                TabButton {
+                    text: "Pearls"
+                }
             }
-            TabButton {
-                text: "Pearls"
-            }
-        }
 
-        StackLayout {
-            id: barStack
-            currentIndex: bar.currentIndex
+            StackLayout {
+                id: barStack
+                width: parent.width
+                currentIndex: bar.currentIndex
+                height: currentIndex === -1 ? 500 : barStack.children[currentIndex].height
 
-            Pane {
-                id: explorePane
-                padding: 0
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-
-                Flickable {
-                    anchors.fill: parent
-                    contentHeight: nftColumn.height
-
-                    Column {
-                        id: nftColumn
-                        width: parent.width
-
-                        App.NftSwiper {
-                            width: parent.width
-                            height: 300
-                        }
-
-                        Rectangle {
-                            height: 30
-                            width: parent.width
-                            color: Qt.rgba(0, 0, 0, 0)
-                        }
-
-                        Label {
-                            text: "<h1>Top Collections</h1>"
-                        }
-
-                        TabBar {
-                            id: collectionsBar
-                            width: parent.width
-
-                            background: Rectangle {
-                                radius: 10
-                                color: "#1f1f1f"
-                            }
-
-                            Repeater {
-                                model: ["1 day", "7 days", "30 days", "All time"]
-
-                                TabButton {
-                                    id: tabButton
-                                    text: modelData
-
-                                    property var currentIndex: TabBar.index
-
-                                    background: Rectangle {
-                                        radius: 10
-                                        color: (collectionsBar.currentIndex == tabButton.currentIndex) ? Qt.lighter(collectionsBar.background.color) : collectionsBar.background.color
-
-                                    }
-                                }
-
-                            }
-
-
-                        }
-
-                        Rectangle {
-                            height: 10
-                            width: parent.width
-                            color: Qt.rgba(0, 0, 0, 0)
-                        }
-
-                        StackLayout {
-                            id: collectionsBarStack
-                            currentIndex: collectionsBar.currentIndex
-                            width: parent.width
-                            height: currentIndex === -1 ? 500 : collectionsBarStack.children[currentIndex].height
-
-                            Repeater {
-                                model: 4
-
-                                App.NftSwiper2 {
-                                    Layout.fillHeight: false
-                                    Layout.minimumHeight: flickable.height
-
-                                    nftElementColor: Qt.lighter("#1f1f1f")
-                                    nftElementWidth: nftColumn.width
-                                    nftElementHeight: 80
-                                }
-
-                            }
-                        }
-                    }
+                App.ExplorePage {
+                    id: explorePane
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
                 }
             }
         }
