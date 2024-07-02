@@ -9,6 +9,12 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     Q_INIT_RESOURCE(res);
 
+    /*
+    QDirIterator it(":", QDirIterator::Subdirectories);
+    while (it.hasNext()) {
+        qDebug() << it.next();
+    }*/
+
     qputenv("QT_QUICK_CONTROLS_UNIVERSAL_THEME", QByteArray("Dark"));
     QQuickStyle::setStyle("Universal");
 

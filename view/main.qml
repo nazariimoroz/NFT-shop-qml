@@ -41,9 +41,17 @@ ApplicationWindow {
 
     Action {
         id: backToMainPageAction
+
+        icon.source: "/images/mainMenu"
+
         onTriggered: {
-            contentStackView.pop(contentStackView.initialItem, StackView.Immediate)
-            contentStackView.currentItem.refresh();
+            if(contentStackView.currentItem === contentStackView.initialItem)
+            {
+                contentStackView.currentItem.refresh();
+            }
+            else {
+                contentStackView.pop(contentStackView.initialItem, StackView.Immediate)
+            }
         }
     }
 
@@ -57,6 +65,8 @@ ApplicationWindow {
 
     Action {
         id: searchPageAction
+
+        icon.source: "/images/searchMagnifyingGlass"
 
         onTriggered: (source) => {
             if(!(contentStackView.currentItem instanceof App.SearchPage)) {
@@ -80,6 +90,8 @@ ApplicationWindow {
     Action {
         id: notificationsPageAction
 
+        icon.source: "/images/notificationBell"
+
         onTriggered: (source) => {
             if(!(contentStackView.currentItem instanceof App.NotificationsPage)) {
                 backToMainPageAction.trigger(source)
@@ -100,6 +112,10 @@ ApplicationWindow {
 
     Action {
         id: userProfilePageAction
+
+        icon.source: contentStackView.currentItem instanceof App.UserProfilePage
+            ? "/images/userProfilePageOpened"
+            : "/images/userProfilePageClosed"
 
         onTriggered: (source) => {
             if(!(contentStackView.currentItem instanceof App.UserProfilePage)) {
@@ -145,7 +161,6 @@ ApplicationWindow {
 
         initialItem: App.MainPage {
             id: mainPage
-            anchors.fill: parent
         }
     }
 }

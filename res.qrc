@@ -5,5 +5,10 @@
     </qresource>
     <qresource prefix="/images">
         <file alias="defaultAvatar">res/defaultAvatar.jpg</file>
+        <file alias="userProfilePageClosed">res/userProfilePageClosed.png</file>
+        <file alias="userProfilePageOpened">res/userProfilePageOpened.png</file>
+        <file alias="notificationBell">res/notificationBell.png</file>
+        <file alias="searchMagnifyingGlass">res/searchMagnifyingGlass.png</file>
+        <file alias="mainMenu">res/mainMenu.png</file>
     </qresource>
 </RCC>
