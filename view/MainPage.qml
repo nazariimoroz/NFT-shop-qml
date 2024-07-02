@@ -44,10 +44,10 @@ Pane {
                     Layout.maximumHeight: implicitHeight
                 }
 
-                Rectangle {
+                App.PearlsPage {
                     Layout.fillWidth: true
-                    Layout.minimumHeight: 100
-                    Layout.maximumHeight: 100
+                    Layout.minimumHeight: implicitHeight
+                    Layout.maximumHeight: implicitHeight
                 }
             }
         }

@@ -26,6 +26,7 @@ qt_add_qml_module(${PROJECT_NAME}
             MainPage.qml
             ExplorePage.qml
             UserProfilePage.qml
+            PearlsPage.qml
             NotificationsPage.qml
             SearchPage.qml
             LoginWindow/LoginWindow.qml
